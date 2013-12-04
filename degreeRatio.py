@@ -50,11 +50,11 @@ plt.figure(figsize=(6*3.13,4*3.13))
 plt.subplot(1,2,1, aspect='equal')
 plt.title('Data In/Out Degree Ratio')
 plt.axis('off');
-plotDegreeRatio("C:\Users\sadovsky\Documents\GitHub\graphDisplay\demo.gexf")
+plotDegreeRatio(r"demo.gexf")
 
 plt.subplot(1,2,2, aspect='equal')
 plt.title('Randomized Graph In/Out Degree Ratio')
 plt.axis('off');
-plotDegreeRatio("C:\Users\sadovsky\Documents\GitHub\graphDisplay\demoRand.gexf")
+plotDegreeRatio(r"demoRand.gexf")
 
 plt.savefig('results.pdf')
