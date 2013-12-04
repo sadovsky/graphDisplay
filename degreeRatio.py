@@ -1,8 +1,10 @@
 import networkx as nx
 import matplotlib.pyplot as plt
+import matplotlib as mpl
 import numpy as np
 
 def plotDegreeRatio(gexFile):
+    '''plot the degree ratio from a supported gexFile'''
     #setup our digraph from a gexf (gephi) format #read_gexf
     DG = nx.DiGraph(nx.read_gexf(gexFile))
     
@@ -46,15 +48,41 @@ def plotDegreeRatio(gexFile):
                        cmap=plt.cm.jet)
     plt.show()
     
+
+def seperateColorbar():
+    ''' make a separate colorbar to go with above'''
+    fig = plt.figure()
+    ax = fig.add_axes([0.05, 0.80, 0.9, 0.15])
+    
+    #set the map and range
+    cmap = plt.cm.jet
+    norm = mpl.colors.Normalize(vmin=0, vmax=1)
+    
+    # ColorbarBase derives from ScalarMappable and puts a colorbar
+    # in a specified axes, so it has everything needed for a
+    # standalone colorbar.  There are many more kwargs, but the
+    # following gives a basic continuous colorbar with ticks
+    # and labels.
+    cb1 = mpl.colorbar.ColorbarBase(ax, cmap=cmap,
+                                       norm=norm,
+                                       orientation='horizontal')
+    cb1.set_label('In/Out Degree Ratio')
+    
+    
+
 plt.figure(figsize=(6*3.13,4*3.13))
 plt.subplot(1,2,1, aspect='equal')
-plt.title('Data In/Out Degree Ratio')
+plt.title('Data')
 plt.axis('off');
 plotDegreeRatio(r"demo.gexf")
 
 plt.subplot(1,2,2, aspect='equal')
-plt.title('Randomized Graph In/Out Degree Ratio')
+plt.title('Randomized')
 plt.axis('off');
 plotDegreeRatio(r"demoRand.gexf")
 
 plt.savefig('results.pdf')
+
+#make a colorbar as well to go with above
+seperateColorbar();
+plt.savefig('colorbar.pdf')
